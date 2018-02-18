@@ -118,24 +118,17 @@ void advanceState() {
 
 
 void breathingPattern() {
-    // this modulo will tell you where to be in the wave function
     int breatht = millis() % breathperiod;
     
-    // Remember trigonometry?
-    // waveperiod is 2pi, so you want to do wavet*2*pi/waveperiod
-    
-    // set brightness to this
     float brightnessfactor = .5 + .5 * sin(2*pi*breatht/breathperiod);
 
-    // now round it to an integer between 1 and 255 and set it to that
     int brightnessvalueint = brightnessfactor * 100;
     
-    b.allLedsOn(0,brightnessvalueint,brightnessvalueint);
+    b.allLedsOn(brightnessvalueint, brightnessvalueint/2, 0);
 }
 
 
 int isItMoving() {
-    // if ((abs(b.readX())>movingThreshold) || (abs(b.readY())>movingThreshold) || (abs(b.readZ())>movingThreshold)) {
     if (abs(b.readZ())>movingThreshold) {
         return 1;
     }
@@ -158,16 +151,16 @@ int checkTime() {
 }
 
 void reminder() {
-    b.allLedsOn(255,255,255);
+    b.allLedsOn(0,100,100);
     b.playSong("B5,8,G4,4,");
     delay(500);
     b.allLedsOff();
     delay(500);
-    b.allLedsOn(255,255,255);
+    b.allLedsOn(0,100,100);
     delay(500);
     b.allLedsOff();
     delay(500);
-    b.allLedsOn(100,100,100);
+    b.allLedsOn(100,100,0);
 }
 
 void finished() {
